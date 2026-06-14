@@ -1,11 +1,11 @@
 """
 Loan Analysis Engine  ·  Modular Architecture
 ═══════════════════════════════════════════════════════════════════
-ADDING A NEW MODULE  (3 steps — that's it)
+ADDING A NEW MODULE (3 steps — that's it)
 ───────────────────────────────────────────────────────────────────
-1. Subclass BaseModule and implement the abstract methods
-2. Add an instance to MODULES list  (search "MODULE REGISTRY")
-3. Done — navigation auto-updates
+1. Create a new file: modules/<module_name>.py
+2. Subclass BaseModule and implement the abstract methods
+3. Add an instance to MODULES list in MODULE_REGISTRY below
 
 Minimal template
 ─────────────────
@@ -52,45 +52,75 @@ st.set_page_config(
 )
 
 # ──────────────────────────────────────────────────────────────────
-# SHARED CSS
+# SHARED CSS - Modern Industry Design
 # ──────────────────────────────────────────────────────────────────
 _STYLES = """<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
-html,body,[class*="css"]{font-family:'DM Sans',sans-serif;color:#1a1f36;letter-spacing:-.01em}
-.block-container{max-width:96%!important;padding-top:1.5rem!important}
-.main{background:linear-gradient(135deg,#f0f4ff 0%,#faf5ff 100%)}
-div[data-testid="stTextInput"] input,div[data-testid="stNumberInput"] input{
-  border-radius:10px!important;border:1px solid #e2e8f0!important;
-  padding:.65rem .9rem!important;font-size:.95rem!important;background:#f8fafc!important;transition:all .2s}
-div[data-testid="stTextInput"] input:focus,div[data-testid="stNumberInput"] input:focus{
-  border-color:#7c3aed!important;box-shadow:0 0 0 3px rgba(124,58,237,.12)!important;background:#fff!important}
-[data-testid="stSidebar"]{background:linear-gradient(180deg,#1e1b4b 0%,#312e81 100%);box-shadow:4px 0 24px rgba(0,0,0,.18)}
-[data-testid="stSidebar"] *{color:#e0e7ff}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Global Reset & Typography */
+html,body,[class*="css"]{font-family:'Inter',sans-serif;color:#0f172a;letter-spacing:-.02em}
+.block-container{max-width:98%!important;padding-top:2rem!important}
+
+/* Background & Layout */
+.main{background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%)}
+[data-testid="stSidebar"]{background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);box-shadow:4px 0 24px rgba(0,0,0,.12)}
+[data-testid="stSidebar"] *{color:#e2e8f0}
 [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"],[data-testid="stSidebar"] input{
-  background:rgba(255,255,255,.95)!important;color:#1e1b4b!important;font-weight:600}
-div.stButton>button[kind="primary"]{background-color:#7c3aed!important;border-color:#7c3aed!important;
-  color:#fff!important;border-radius:8px;font-weight:600;transition:all .2s ease}
-div.stButton>button[kind="primary"]:hover{background-color:#6d28d9!important;transform:translateY(-1px)}
-.mc{background:linear-gradient(135deg,#fff,#f5f3ff);padding:1.25rem 1.5rem;
-  border-radius:14px;border:1px solid #ddd6fe;box-shadow:0 4px 14px rgba(124,58,237,.08)}
-.ml{font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.35rem}
-.mv{font-size:1.7rem;font-weight:700;color:#1e1b4b;font-family:'DM Mono',monospace;line-height:1.1}
-.ms{font-size:.8rem;font-weight:600;margin-top:.3rem}
-.ac{background:linear-gradient(135deg,#1e1b4b,#312e81);padding:1.25rem 1.5rem;
-  border-radius:14px;border:1px solid #4338ca;box-shadow:0 4px 14px rgba(30,27,75,.18)}
-.al{font-size:.75rem;font-weight:700;color:#a5b4fc;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.35rem}
-.av{font-size:1.7rem;font-weight:700;color:#fff;font-family:'DM Mono',monospace;line-height:1.1}
-.sb{padding:.9rem 1.5rem;border-radius:12px;font-weight:700;font-size:1rem;text-align:center;margin:1.25rem 0}
-.sp{background:#d1fae5;border:2px solid #059669;color:#065f46}
-.sf{background:#fee2e2;border:2px solid #dc2626;color:#991b1b}
-.gw{margin-top:.4rem;height:7px;background:#e2e8f0;border-radius:99px;overflow:hidden}
-.go{height:100%;border-radius:99px;background:#059669}
-.gx{height:100%;border-radius:99px;background:#f59e0b}
-.gf{height:100%;border-radius:99px;background:#dc2626}
-.dp-pos{color:#059669}
-.dp-neg{color:#dc2626}
-.is{background:#fff;padding:2rem;border-radius:16px;border-left:4px solid #3b82f6;
-  box-shadow:0 8px 32px rgba(0,0,0,.08);margin-bottom:2rem}
+  background:rgba(255,255,255,.08)!important;color:#f1f5f9!important;border:1px solid rgba(255,255,255,.15)!important;border-radius:8px!important}
+
+/* Input Fields - Clean, Professional */
+div[data-testid="stTextInput"] input,div[data-testid="stNumberInput"] input{
+  border-radius:8px!important;border:1px solid #cbd5e1!important;
+  padding:.7rem 1rem!important;font-size:.9rem!important;background:#fff!important;transition:all .15s}
+div[data-testid="stTextInput"] input:focus,div[data-testid="stNumberInput"] input:focus{
+  border-color:#2563eb!important;box-shadow:0 0 0 3px rgba(37,99,235,.15)!important}
+
+/* Buttons - Primary Action */
+div.stButton>button[kind="primary"]{background:linear-gradient(135deg,#2563eb,#1d4ed8)!important;border:none!important;
+  color:#fff!important;border-radius:8px;font-weight:600;transition:all .2s ease;box-shadow:0 2px 8px rgba(37,99,235,.25)}
+div.stButton>button[kind="primary"]:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.35)}
+
+/* Metric Cards - Light Theme */
+.mc{background:#fff;padding:1.5rem 1.75rem;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .2s}
+.mc:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.ml{font-size:.7rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.mv{font-size:1.85rem;font-weight:700;color:#0f172a;font-family:'JetBrains Mono',monospace;line-height:1.2}
+.ms{font-size:.8rem;font-weight:600;color:#475569;margin-top:.4rem}
+
+/* Aggregate Cards - Dark Theme */
+.ac{background:linear-gradient(135deg,#1e293b,#334155);padding:1.5rem 1.75rem;
+  border-radius:12px;border:1px solid #475569;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.al{font-size:.7rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.av{font-size:1.85rem;font-weight:700;color:#f8fafc;font-family:'JetBrains Mono',monospace;line-height:1.2}
+
+/* Status Banners */
+.sb{padding:1rem 1.5rem;border-radius:10px;font-weight:600;font-size:.95rem;text-align:center;margin:1.5rem 0}
+.sp{background:#dcfce7;border:1px solid #22c55e;color:#166534}
+.sf{background:#fee2e2;border:1px solid #ef4444;color:#991b1b}
+
+/* Progress Gauges */
+.gw{margin-top:.5rem;height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+.go{height:100%;border-radius:99px;background:linear-gradient(90deg,#22c55e,#16a34a)}
+.gx{height:100%;border-radius:99px;background:linear-gradient(90deg,#f59e0b,#d97706)}
+.gf{height:100%;border-radius:99px;background:linear-gradient(90deg,#ef4444,#dc2626)}
+
+/* Dynamic Text Colors */
+.dp-pos{color:#16a34a;font-weight:600}
+.dp-neg{color:#dc2626;font-weight:600}
+
+/* Info Section */
+.is{background:#fff;padding:2rem;border-radius:12px;border-left:4px solid #3b82f6;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);margin-bottom:2rem}
+
+/* Tables */
+table.dataframe{border-collapse:collapse;width:100%;font-size:.85rem}
+table.dataframe th{background:#f8fafc;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:.75rem;padding:.75rem 1rem;border:1px solid #e2e8f0}
+table.dataframe td{padding:.65rem 1rem;border:1px solid #e2e8f0;color:#334155}
+table.dataframe tr:nth-child(even){background:#f8fafc}
+table.dataframe tr:hover{background:#f1f5f9}
+
+/* Section Headers */
+.section-header{font-size:1.1rem;font-weight:700;color:#1e293b;margin:1.5rem 0 1rem 0;padding-bottom:.5rem;border-bottom:2px solid #e2e8f0}
 </style>"""
 
 # ──────────────────────────────────────────────────────────────────
@@ -2003,13 +2033,22 @@ class DTIModule(BaseModule):
 # ══════════════════════════════════════════════════════════════════
 #
 #   To add a new module:
-#     1. Create a class extending BaseModule (anywhere above)
-#     2. Append an instance below — sidebar navigation auto-updates
+#     1. Create a new file in modules/ directory (e.g., modules/credit_score.py)
+#     2. Subclass BaseModule and implement required methods
+#     3. Import and add instance below — sidebar navigation auto-updates
 #
+#   Example:
+#     from modules.credit_score import CreditScoreModule
+#     MODULES.append(CreditScoreModule())
+#
+from modules.ltv_module import LTVModule
+from modules.dti_module import DTIModule
+
 MODULES: list[BaseModule] = [
     LTVModule(),
     DTIModule(),
-    # MyNewModule(),   ← add here
+    # Add new modules here:
+    # MyNewModule(),
 ]
 
 
