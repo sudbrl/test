@@ -11,10 +11,8 @@ import pandas as pd
 import streamlit as st
 from fpdf import FPDF
 
-# Import from parent directory
-import sys
-sys.path.insert(0, '/workspace')
-from frontend import BaseModule, safe_str
+# Import base class from sibling module
+from modules.base_module import BaseModule
 
 
 class LTVPdf(FPDF):

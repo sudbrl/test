@@ -10,10 +10,8 @@ from datetime import datetime
 import pandas as pd
 import streamlit as st
 
-# Import from parent directory
-import sys
-sys.path.insert(0, '/workspace')
-from frontend import BaseModule
+# Import base class from sibling module
+from modules.base_module import BaseModule
 
 
 # ── Data Classes ───────────────────────────────────────────────
